@@ -1,5 +1,5 @@
 import logging
-from model.model_evaluator import ModelEvaluator
+from models.model_evaluator import ModelEvaluator
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

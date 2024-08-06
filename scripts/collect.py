@@ -1,4 +1,4 @@
-from model.data_collector import DataCollector
+from models.data_collector import DataCollector
 import logging
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-from model.model_trainer import ModelTrainer
+from models.model_trainer import ModelTrainer
 import logging
 
 if __name__ == "__main__":

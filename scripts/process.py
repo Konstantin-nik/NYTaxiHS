@@ -1,4 +1,4 @@
-from model.data_processor import DataProcessor
+from models.data_processor import DataProcessor
 import logging
 
 if __name__ == "__main__":
