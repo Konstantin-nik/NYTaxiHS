@@ -1,5 +1,7 @@
-from models.data_processor import DataProcessor
+from pipeline.data_processor import DataProcessor
 import logging
+
+from config import RAW_DATA_DIR, PROCESSED_DATA_DIR, TAXI_DATA, ZONES_DATA, TRAIN_DATA, VALIDATION_DATA, TEST_DATA
 
 if __name__ == "__main__":
     logging.basicConfig(
@@ -7,8 +9,8 @@ if __name__ == "__main__":
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
     processor = DataProcessor(
-        data_filename="data/data.csv",
-        zones_filename="data/zones.csv",
-        output_folder="data",
+        data_filename=TAXI_DATA,
+        zones_filename=ZONES_DATA,
+        input_folder=RAW_DATA_DIR,
     )
-    processor.run()
+    processor.run(PROCESSED_DATA_DIR, TRAIN_DATA, VALIDATION_DATA, TEST_DATA)

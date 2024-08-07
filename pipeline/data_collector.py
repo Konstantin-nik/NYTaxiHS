@@ -86,8 +86,8 @@ class DataCollector:
     def run(
         self,
         days: int = 10,
-        file_name: str = "data.csv",
         folder: str = "data",
+        file_name: str = "data.csv",
         zones_file_name: str = "zones.csv",
     ) -> None:
         data = self.get_data(days=days)

@@ -10,17 +10,17 @@ import os
 
 class ModelTrainer:
     def __init__(
-        self, train_file: str, val_file: str, test_file: str, model_dir: str = "models"
+        self,
+        data_folder: str,
+        train_file: str, 
+        val_file: str, 
+        test_file: str, 
     ):
         self.logger = logging.getLogger(__name__)
-        self.train_file = train_file
-        self.val_file = val_file
-        self.test_file = test_file
-        self.model_dir = model_dir
+        self.train_file = os.path.join(data_folder, train_file)
+        self.val_file = os.path.join(data_folder, val_file)
+        self.test_file = os.path.join(data_folder, test_file)
         self.best_model = None
-
-        if not os.path.exists(model_dir):
-            os.makedirs(model_dir)
 
     def load_data(self):
         self.train_df = pd.read_csv(self.train_file)
@@ -82,14 +82,17 @@ class ModelTrainer:
 
         self.best_model = xgb.train(self.best_params, combined_dmatrix)
 
-    def save_model(self, model_filename: str = "xgb.json"):
-        model_path = os.path.join(self.model_dir, model_filename)
+    def save_model(self, folder: str, model_filename: str):
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+
+        model_path = os.path.join(folder, model_filename)
         self.best_model.save_model(model_path)
         self.logger.info(f"Model saved to {model_path}")
 
-    def run(self, n_trials: int = 100):
+    def run(self, n_trials: int = 100, folder: str = "", model_filename: str = "xgb.json"):
         self.load_data()
         self.separate_features_and_target()
         self.tune_hyperparameters(n_trials)
         self.train_best_model()
-        self.save_model()
+        self.save_model(folder, model_filename)

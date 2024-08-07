@@ -1,0 +1,16 @@
+directories:
+  data:
+    raw: data/raw
+    processed: data/processed
+  model: models
+
+filenames:
+  data:
+    taxi: taxi-data.csv
+    zones: taxi-zones.csv
+    train: train.csv
+    validation: validation.csv
+    test: test
+  model: xgb.json
+
+    

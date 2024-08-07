@@ -5,16 +5,18 @@ import os
 
 class DataProcessor:
     def __init__(
-        self, data_filename: str, zones_filename: str, output_folder: str
+        self, data_filename: str, zones_filename: str, input_folder: str
     ) -> None:
         self.logger = logging.getLogger(__name__)
         self.data_filename = data_filename
         self.zones_filename = zones_filename
-        self.output_folder = output_folder
+        self.input_folder = input_folder
 
     def load_data(self) -> pd.DataFrame:
-        df = pd.read_csv(self.data_filename)
-        df_zone = pd.read_csv(self.zones_filename)
+        data_path = os.path.join(self.input_folder, self.data_filename)
+        zones_data_path = os.path.join(self.input_folder, self.zones_filename)
+        df = pd.read_csv(data_path)
+        df_zone = pd.read_csv(zones_data_path)
         return df, df_zone
 
     def extract_features(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -106,6 +108,7 @@ class DataProcessor:
     def split_and_save_data(
         self,
         df: pd.DataFrame,
+        folder: str,
         train_filename: str,
         val_filename: str,
         test_filename: str,
@@ -119,12 +122,12 @@ class DataProcessor:
         val = df.iloc[train_end:val_end]
         test = df.iloc[val_end:]
 
-        if not os.path.exists(self.output_folder):
-            os.makedirs(self.output_folder)
+        if not os.path.exists(folder):
+            os.makedirs(folder)
 
-        train_filepath = os.path.join(self.output_folder, train_filename)
-        val_filepath = os.path.join(self.output_folder, val_filename)
-        test_filepath = os.path.join(self.output_folder, test_filename)
+        train_filepath = os.path.join(folder, train_filename)
+        val_filepath = os.path.join(folder, val_filename)
+        test_filepath = os.path.join(folder, test_filename)
 
         train.to_csv(train_filepath, index=False)
         val.to_csv(val_filepath, index=False)
@@ -134,9 +137,9 @@ class DataProcessor:
             f"Data split and saved: train - {len(train)}, val - {len(val)}, test - {len(test)}"
         )
 
-    def run(self):
+    def run(self, folder, train_filenname, validation_filenname, test_filename):
         df, df_zone = self.load_data()
         df = self.extract_features(df)
         df = self.merge_location_data(df, df_zone)
         df = self.encode_categorical(df)
-        self.split_and_save_data(df, "train.csv", "val.csv", "test.csv")
+        self.split_and_save_data(df, folder, train_filenname, validation_filenname, test_filename)
