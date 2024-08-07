@@ -3,6 +3,7 @@ directories:
     raw: data/raw
     processed: data/processed
   model: models
+  report: reports
 
 filenames:
   data:
@@ -12,5 +13,6 @@ filenames:
     validation: validation.csv
     test: test
   model: xgb.json
+  evaluation_report: eval_report.json
 
     

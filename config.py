@@ -15,6 +15,7 @@ with open(PARAMS_YAML_DIR, 'rb') as f:
 RAW_DATA_DIR = configs.directories.data.raw
 PROCESSED_DATA_DIR = configs.directories.data.processed
 MODELS_DIR = configs.directories.model
+REPORTS_DIR = configs.directories.report
 
 #######################################################
 # File names
@@ -25,3 +26,4 @@ TRAIN_DATA = configs.filenames.data.train
 VALIDATION_DATA = configs.filenames.data.validation
 TEST_DATA = configs.filenames.data.test
 MODEL = configs.filenames.model
+EVALUATION_REPORT = configs.filenames.evaluation_report

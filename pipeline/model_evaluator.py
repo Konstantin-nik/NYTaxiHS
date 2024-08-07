@@ -1,3 +1,7 @@
+import logging
+import json
+import os
+
 import pandas as pd
 import xgboost as xgb
 from sklearn.metrics import (
@@ -5,8 +9,6 @@ from sklearn.metrics import (
     mean_absolute_error,
     mean_absolute_percentage_error,
 )
-import logging
-import os
 
 
 class ModelEvaluator:
@@ -49,7 +51,22 @@ class ModelEvaluator:
         self.logger.info(f"MAE: {mae}")
         self.logger.info(f"MAPE: {mape}")
 
-    def run(self):
+        self.report = {
+            "RMSE": rmse,
+            "MAE": mae,
+            "MAPE": mape
+        }
+
+    def save_report(self, folder, filename):
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+
+        file_path = os.path.join(folder, filename)
+        with open(file_path, mode="w") as file:
+            file.write(json.dumps(self.report))
+
+    def run(self, folder, filename):
         self.load_model()
         self.load_test_data()
         self.evaluate()
+        self.save_report(folder, filename)
