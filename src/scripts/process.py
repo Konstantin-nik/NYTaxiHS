@@ -1,4 +1,4 @@
-from pipeline.data_processor import DataProcessor
+from src.pipeline.data_processor import DataProcessor
 import logging
 
 from config import RAW_DATA_DIR, PROCESSED_DATA_DIR, TAXI_DATA, ZONES_DATA, TRAIN_DATA, VALIDATION_DATA, TEST_DATA

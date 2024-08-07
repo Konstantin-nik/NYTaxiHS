@@ -1,4 +1,4 @@
-from pipeline.data_collector import DataCollector
+from src.pipeline.data_collector import DataCollector
 import logging
 
 from config import RAW_DATA_DIR, TAXI_DATA, ZONES_DATA

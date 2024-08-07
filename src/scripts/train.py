@@ -1,6 +1,6 @@
 import logging
 
-from pipeline.model_trainer import ModelTrainer
+from src.pipeline.model_trainer import ModelTrainer
 from config import PROCESSED_DATA_DIR, MODELS_DIR, TRAIN_DATA, VALIDATION_DATA, TEST_DATA, MODEL
 
 if __name__ == "__main__":

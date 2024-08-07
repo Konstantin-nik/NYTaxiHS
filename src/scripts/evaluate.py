@@ -1,7 +1,7 @@
 import logging
 import os
 
-from pipeline.model_evaluator import ModelEvaluator
+from src.pipeline.model_evaluator import ModelEvaluator
 from config import MODELS_DIR, PROCESSED_DATA_DIR, REPORTS_DIR, MODEL, TEST_DATA, EVALUATION_REPORT
 
 if __name__ == "__main__":
