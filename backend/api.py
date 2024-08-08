@@ -5,7 +5,7 @@ from model_executor import ModelExecutor
 
 router = APIRouter()
 
-MODEL_PATH = "models/model.json"
+MODEL_PATH = "models/xgb.json"
 _model_executor = None
 
 
