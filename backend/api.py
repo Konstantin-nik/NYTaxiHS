@@ -27,22 +27,23 @@ class PredictionRequest(BaseModel):
 
 
 class PredictionResponse(BaseModel):
-    predictions: List[float]
+    prediction: float
 
 
 @router.post("/predict", response_model=PredictionResponse)
 async def predict(
-    requests: PredictionRequest,
+    request: PredictionRequest,
     model_executor: ModelExecutor = Depends(get_model_executor),
 ):
     data = {
-        "request_datetime": [req.request_datetime for req in requests],
-        "trip_distance": [req.trip_distance for req in requests],
-        "PULocationID": [req.PULocationID for req in requests],
-        "DOLocationID": [req.DOLocationID for req in requests],
-        "Airport": [req.Airport for req in requests],
+        "request_datetime": request.request_datetime,
+        "trip_distance": request.trip_distance,
+        "PULocationID": request.PULocationID,
+        "DOLocationID": request.DOLocationID,
+        "Airport": request.Airport,
     }
     
-    predictions = model_executor.predict(data)
+    # predictions = model_executor.predict(data)
     
-    return PredictionResponse(predictions=predictions)
+    # return PredictionResponse(predictions=predictions)
+    return PredictionResponse(prediction=0)
