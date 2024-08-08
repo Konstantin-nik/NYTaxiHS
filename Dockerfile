@@ -13,4 +13,5 @@ FROM python:3.11.9-slim-bookworm
 WORKDIR /app
 COPY --from=builder /app/.venv .venv/
 COPY backend/ ./
+COPY models/ models/
 CMD [".venv/bin/python3", "-m", "app"]
