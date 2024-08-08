@@ -1,6 +1,10 @@
+vars:
+  - params.yaml
+  - python: .venv/bin/python3
+
 stages:
   load_data:
-    cmd: python -m src.scripts.collect
+    cmd: ${python} -m src.scripts.collect
     deps:
       - src/scripts/collect.py
       - src/pipeline/data_collector.py
@@ -9,7 +13,7 @@ stages:
       - ${directories.data.raw}/${filenames.data.zones}
 
   process_data:
-    cmd: python -m src.scripts.process
+    cmd: ${python} -m src.scripts.process
     deps:
       - src/scripts/process.py
       - src/pipeline/data_processor.py
@@ -21,7 +25,7 @@ stages:
       - ${directories.data.processed}/${filenames.data.test}
 
   train:
-    cmd: python -m src.scripts.train
+    cmd: ${python} -m src.scripts.train
     deps:
       - src/scripts/train.py
       - src/pipeline/model_trainer.py
@@ -32,11 +36,11 @@ stages:
       - ${directories.model}/${filenames.model}
   
   evaluate:
-    cmd: python -m src.scripts.evaluate
+    cmd: ${python} -m src.scripts.evaluate
     deps:
       - src/scripts/evaluate.py
       - src/pipeline/model_evaluator.py
       - ${directories.model}/${filenames.model}
     outs:
-      - data/reference/reference_data_2021-01.parquet
+      - ${directories.report}/${filenames.evaluation_report}
       

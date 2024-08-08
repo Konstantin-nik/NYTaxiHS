@@ -1,0 +1,102 @@
+schema: '2.0'
+stages:
+  load_data:
+    cmd: .venv/bin/python3 -m src.scripts.collect
+    deps:
+    - path: src/pipeline/data_collector.py
+      hash: md5
+      md5: 57efd59acf8934c095123cefaa3420c1
+      size: 3949
+    - path: src/scripts/collect.py
+      hash: md5
+      md5: fd54759823c522193a4fbd7ace48217c
+      size: 402
+    outs:
+    - path: data/raw/taxi-data.csv
+      hash: md5
+      md5: 77e96b6ea84be548b67c1e6f27e040a4
+      size: 123397466
+    - path: data/raw/taxi-zones.csv
+      hash: md5
+      md5: 3b5ed059f4ff23f0927b3373d4a67d9f
+      size: 10467
+  process_data:
+    cmd: .venv/bin/python3 -m src.scripts.process
+    deps:
+    - path: data/raw/taxi-data.csv
+      hash: md5
+      md5: 77e96b6ea84be548b67c1e6f27e040a4
+      size: 123397466
+    - path: data/raw/taxi-zones.csv
+      hash: md5
+      md5: 3b5ed059f4ff23f0927b3373d4a67d9f
+      size: 10467
+    - path: src/pipeline/data_processor.py
+      hash: md5
+      md5: 93aee46bee18254125d99aa08402b463
+      size: 4912
+    - path: src/scripts/process.py
+      hash: md5
+      md5: 2e6bd105072c6d1104f6f77c864bd053
+      size: 560
+    outs:
+    - path: data/processed/test
+      hash: md5
+      md5: 5b2baaa46ca2dca7758a6cffe680c4b0
+      size: 16184613
+    - path: data/processed/train.csv
+      hash: md5
+      md5: 0975e9cb6849e3f49e06e7dcefee498a
+      size: 75860144
+    - path: data/processed/validation.csv
+      hash: md5
+      md5: 6aa5699d1e4d4ed1c4c77a4ed165aa8a
+      size: 16178707
+  train:
+    cmd: .venv/bin/python3 -m src.scripts.train
+    deps:
+    - path: data/processed/test
+      hash: md5
+      md5: 5b2baaa46ca2dca7758a6cffe680c4b0
+      size: 16184613
+    - path: data/processed/train.csv
+      hash: md5
+      md5: 0975e9cb6849e3f49e06e7dcefee498a
+      size: 75860144
+    - path: data/processed/validation.csv
+      hash: md5
+      md5: 6aa5699d1e4d4ed1c4c77a4ed165aa8a
+      size: 16178707
+    - path: src/pipeline/model_trainer.py
+      hash: md5
+      md5: 63e567b4ca71fde1527d9da6466facaf
+      size: 3684
+    - path: src/scripts/train.py
+      hash: md5
+      md5: a5e8e24fdaf327b696ea3ef1a4cacdfa
+      size: 479
+    outs:
+    - path: models/xgb.json
+      hash: md5
+      md5: 9bf6388eb4e2928f5119b974bcb6cac0
+      size: 12664
+  evaluate:
+    cmd: .venv/bin/python3 -m src.scripts.evaluate
+    deps:
+    - path: models/xgb.json
+      hash: md5
+      md5: 9bf6388eb4e2928f5119b974bcb6cac0
+      size: 12664
+    - path: src/pipeline/model_evaluator.py
+      hash: md5
+      md5: 9fa7471404d4548065431e521d9b37a9
+      size: 2193
+    - path: src/scripts/evaluate.py
+      hash: md5
+      md5: 59d5c3ca94e1ef1f9f213d63e1be36ee
+      size: 504
+    outs:
+    - path: reports/eval_report.json
+      hash: md5
+      md5: be184f4cfe0651a423d5d2199d85780a
+      size: 80
