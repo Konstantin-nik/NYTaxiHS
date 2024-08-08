@@ -5,6 +5,7 @@ from model_executor import ModelExecutor
 
 router = APIRouter()
 
+MODEL_PATH = "models/model.json"
 _model_executor = None
 
 
@@ -12,7 +13,7 @@ def get_model_executor() -> ModelExecutor:
     global _model_executor
 
     if _model_executor is None:
-        _model_executor = ModelExecutor(model_path="model.json")
+        _model_executor = ModelExecutor(model_path=MODEL_PATH)
 
     return _model_executor
 
@@ -31,7 +32,7 @@ class PredictionResponse(BaseModel):
 
 @router.post("/predict", response_model=PredictionResponse)
 async def predict(
-    requests: List[PredictionRequest],
+    requests: PredictionRequest,
     model_executor: ModelExecutor = Depends(get_model_executor),
 ):
     data = {
