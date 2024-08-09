@@ -46,4 +46,4 @@ async def predict(
     # predictions = model_executor.predict(data)
     
     # return PredictionResponse(predictions=predictions)
-    return PredictionResponse(prediction=0)
+    return PredictionResponse(prediction=0.5)
