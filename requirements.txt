@@ -13,3 +13,4 @@ optuna
 sqlalchemy
 prefect
 dvc
+dvxlive

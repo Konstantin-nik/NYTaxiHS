@@ -1,4 +1,6 @@
-.venv/
 .env
 *.pyc
+test.ipynb
+
 data/
+.venv/

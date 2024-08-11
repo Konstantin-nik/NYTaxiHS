@@ -140,6 +140,7 @@ class DataProcessor:
     def run(self, folder, train_filenname, validation_filenname, test_filename):
         df, df_zone = self.load_data()
         df = self.extract_features(df)
-        df = self.merge_location_data(df, df_zone)
-        df = self.encode_categorical(df)
+        # df = self.merge_location_data(df, df_zone)
+        # df = self.encode_categorical(df)
+        df = df.astype(float)
         self.split_and_save_data(df, folder, train_filenname, validation_filenname, test_filename)

@@ -11,7 +11,7 @@ filenames:
     zones: taxi-zones.csv
     train: train.csv
     validation: validation.csv
-    test: test
+    test: test.csv
   model: xgb.json
   evaluation_report: eval_report.json
 

@@ -1,11 +1,14 @@
+import logging
+import os
+import optuna
+
 import pandas as pd
 import xgboost as xgb
-import optuna
+
+from dvclive import Live
 from optuna import Trial
 from optuna.samplers import TPESampler
 from sklearn.metrics import mean_absolute_error
-import logging
-import os
 
 
 class ModelTrainer:
@@ -89,6 +92,8 @@ class ModelTrainer:
         model_path = os.path.join(folder, model_filename)
         self.best_model.save_model(model_path)
         self.logger.info(f"Model saved to {model_path}")
+        with Live() as live:
+            live.log_artifact(model_path, type="model", name="xgboost")
 
     def run(self, n_trials: int = 100, folder: str = "", model_filename: str = "xgb.json"):
         self.load_data()

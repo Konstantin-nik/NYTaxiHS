@@ -1,46 +1,53 @@
 vars:
-  - params.yaml
-  - python: .venv/bin/python3
+- params.yaml
+- python: .venv/bin/python3
 
 stages:
   load_data:
     cmd: ${python} -m src.scripts.collect
     deps:
-      - src/scripts/collect.py
-      - src/pipeline/data_collector.py
+    - src/scripts/collect.py
+    - src/pipeline/data_collector.py
     outs:
-      - ${directories.data.raw}/${filenames.data.taxi}
-      - ${directories.data.raw}/${filenames.data.zones}
+    - ${directories.data.raw}/${filenames.data.taxi}
+    - ${directories.data.raw}/${filenames.data.zones}
 
   process_data:
     cmd: ${python} -m src.scripts.process
     deps:
-      - src/scripts/process.py
-      - src/pipeline/data_processor.py
-      - ${directories.data.raw}/${filenames.data.taxi}
-      - ${directories.data.raw}/${filenames.data.zones}
+    - src/scripts/process.py
+    - src/pipeline/data_processor.py
+    - ${directories.data.raw}/${filenames.data.taxi}
+    - ${directories.data.raw}/${filenames.data.zones}
     outs:
-      - ${directories.data.processed}/${filenames.data.train}
-      - ${directories.data.processed}/${filenames.data.validation}
-      - ${directories.data.processed}/${filenames.data.test}
+    - ${directories.data.processed}/${filenames.data.train}
+    - ${directories.data.processed}/${filenames.data.validation}
+    - ${directories.data.processed}/${filenames.data.test}
 
   train:
     cmd: ${python} -m src.scripts.train
     deps:
-      - src/scripts/train.py
-      - src/pipeline/model_trainer.py
-      - ${directories.data.processed}/${filenames.data.train}
-      - ${directories.data.processed}/${filenames.data.validation}
-      - ${directories.data.processed}/${filenames.data.test}
+    - src/scripts/train.py
+    - src/pipeline/model_trainer.py
+    - ${directories.data.processed}/${filenames.data.train}
+    - ${directories.data.processed}/${filenames.data.validation}
+    - ${directories.data.processed}/${filenames.data.test}
     outs:
-      - ${directories.model}/${filenames.model}
-  
+    - ${directories.model}/${filenames.model}
+
   evaluate:
     cmd: ${python} -m src.scripts.evaluate
     deps:
-      - src/scripts/evaluate.py
-      - src/pipeline/model_evaluator.py
-      - ${directories.model}/${filenames.model}
-    outs:
-      - ${directories.report}/${filenames.evaluation_report}
-      
+    - src/scripts/evaluate.py
+    - src/pipeline/model_evaluator.py
+    - ${directories.model}/${filenames.model}
+
+artifacts:
+  xgboost:
+    path: models/xgb.json
+    type: model
+metrics:
+- dvclive/metrics.json
+plots:
+- dvclive/plots/metrics:
+    x: step
