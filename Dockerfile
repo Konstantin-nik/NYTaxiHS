@@ -12,5 +12,5 @@ RUN .venv/bin/pip install -r requirements.txt
 FROM python:3.11.9-slim-bookworm
 WORKDIR /app
 COPY --from=builder /app/.venv .venv/
-COPY backend/ ./
+COPY backend/ backend/
 CMD [".venv/bin/python3", "-m", "app"]
