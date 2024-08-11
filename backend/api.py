@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from typing import List
-from model_executor import ModelExecutor
+from backend.model_executor import ModelExecutor
 
 router = APIRouter()
 
@@ -19,6 +19,7 @@ def get_model_executor() -> ModelExecutor:
 
 
 class PredictionRequest(BaseModel):
+    trip_id: int
     request_datetime: str
     trip_distance: float
     PULocationID: int 
@@ -34,16 +35,8 @@ class PredictionResponse(BaseModel):
 async def predict(
     request: PredictionRequest,
     model_executor: ModelExecutor = Depends(get_model_executor),
-):
-    data = {
-        "request_datetime": request.request_datetime,
-        "trip_distance": request.trip_distance,
-        "PULocationID": request.PULocationID,
-        "DOLocationID": request.DOLocationID,
-        "Airport": request.Airport,
-    }
+):  
+    prediction = model_executor.predict(request)
     
-    # predictions = model_executor.predict(data)
-    
-    # return PredictionResponse(predictions=predictions)
-    return PredictionResponse(prediction=0.5)
+    return PredictionResponse(prediction=prediction)
+    # return PredictionResponse(prediction=0.5)

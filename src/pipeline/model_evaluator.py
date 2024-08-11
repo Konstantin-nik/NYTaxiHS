@@ -4,6 +4,8 @@ import os
 
 import pandas as pd
 import xgboost as xgb
+
+from dvclive import Live
 from sklearn.metrics import (
     mean_squared_error,
     mean_absolute_error,
@@ -51,22 +53,14 @@ class ModelEvaluator:
         self.logger.info(f"MAE: {mae}")
         self.logger.info(f"MAPE: {mape}")
 
-        self.report = {
-            "RMSE": rmse,
-            "MAE": mae,
-            "MAPE": mape
-        }
+        with Live(resume=True) as live:
+            live.log_metric("RMSE", rmse)
+            live.log_metric("MAE", mae)
+            live.log_metric("MAPE", mape)
 
-    def save_report(self, folder, filename):
-        if not os.path.exists(folder):
-            os.makedirs(folder)
+        self.logger.info(f"Evaluation metrics saved")
 
-        file_path = os.path.join(folder, filename)
-        with open(file_path, mode="w") as file:
-            file.write(json.dumps(self.report))
-
-    def run(self, folder, filename):
+    def run(self):
         self.load_model()
         self.load_test_data()
         self.evaluate()
-        self.save_report(folder, filename)
