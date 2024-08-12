@@ -1,0 +1,7 @@
+[core]
+    remote = storage
+    autostage = true
+['remote "storage"']
+    url = s3://broken-resonance-2608/
+    endpointUrl = https://fly.storage.tigris.dev
+    

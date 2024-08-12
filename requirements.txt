@@ -13,4 +13,6 @@ optuna
 sqlalchemy
 prefect
 dvc
-dvxlive
+dvclive
+dvc_s3
+awscli
