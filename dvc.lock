@@ -5,8 +5,8 @@ stages:
     deps:
     - path: src/pipeline/data_collector.py
       hash: md5
-      md5: 57efd59acf8934c095123cefaa3420c1
-      size: 3949
+      md5: 3448aae241fb6c1074b3d394bb05c0c3
+      size: 3950
     - path: src/scripts/collect.py
       hash: md5
       md5: fd54759823c522193a4fbd7ace48217c
@@ -14,8 +14,8 @@ stages:
     outs:
     - path: data/raw/taxi-data.csv
       hash: md5
-      md5: 77e96b6ea84be548b67c1e6f27e040a4
-      size: 123397466
+      md5: 93cc474c5acd736ab1d53de17194c027
+      size: 57685310
     - path: data/raw/taxi-zones.csv
       hash: md5
       md5: 3b5ed059f4ff23f0927b3373d4a67d9f
@@ -25,8 +25,8 @@ stages:
     deps:
     - path: data/raw/taxi-data.csv
       hash: md5
-      md5: 77e96b6ea84be548b67c1e6f27e040a4
-      size: 123397466
+      md5: 93cc474c5acd736ab1d53de17194c027
+      size: 57685310
     - path: data/raw/taxi-zones.csv
       hash: md5
       md5: 3b5ed059f4ff23f0927b3373d4a67d9f
@@ -42,31 +42,31 @@ stages:
     outs:
     - path: data/processed/test.csv
       hash: md5
-      md5: a68aef3c721a1753326cb99c5e81b4e0
-      size: 6252781
+      md5: d64b6213ee282c4a477d27c28f55ec23
+      size: 2959412
     - path: data/processed/train.csv
       hash: md5
-      md5: 0452d5b39af70bc1e9aa92ab3a5ef80d
-      size: 29524387
+      md5: ea604faf2248c892a4d489f46c326fbc
+      size: 13647267
     - path: data/processed/validation.csv
       hash: md5
-      md5: 2893cf5efdebeffaf89fa8fb29a414eb
-      size: 6252182
+      md5: c47d5d85f7bdcc7f7fed60ed2b4713a6
+      size: 2982504
   train:
     cmd: .venv/bin/python3 -m src.scripts.train
     deps:
     - path: data/processed/test.csv
       hash: md5
-      md5: a68aef3c721a1753326cb99c5e81b4e0
-      size: 6252781
+      md5: d64b6213ee282c4a477d27c28f55ec23
+      size: 2959412
     - path: data/processed/train.csv
       hash: md5
-      md5: 0452d5b39af70bc1e9aa92ab3a5ef80d
-      size: 29524387
+      md5: ea604faf2248c892a4d489f46c326fbc
+      size: 13647267
     - path: data/processed/validation.csv
       hash: md5
-      md5: 2893cf5efdebeffaf89fa8fb29a414eb
-      size: 6252182
+      md5: c47d5d85f7bdcc7f7fed60ed2b4713a6
+      size: 2982504
     - path: src/pipeline/model_trainer.py
       hash: md5
       md5: b02675ba38d8d5ff96e7d34e206a2dfd
@@ -78,15 +78,15 @@ stages:
     outs:
     - path: models/xgb.json
       hash: md5
-      md5: cf3a7acb5b7c9455ba3ddce5e958db45
-      size: 12033
+      md5: aa0fc9607391df24ebad9101d3dc65c1
+      size: 34113
   evaluate:
     cmd: .venv/bin/python3 -m src.scripts.evaluate
     deps:
     - path: models/xgb.json
       hash: md5
-      md5: cf3a7acb5b7c9455ba3ddce5e958db45
-      size: 12033
+      md5: aa0fc9607391df24ebad9101d3dc65c1
+      size: 34113
     - path: src/pipeline/model_evaluator.py
       hash: md5
       md5: 9e9f6bf67f00b2c26ae85bfa671eff6e
