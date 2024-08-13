@@ -33,7 +33,7 @@ def log_trip_prediction(trip_id, features, prediction):
 
     log_str = json.dumps(log_dict)
 
-    logger.info(f"Prediction_result: {log_str}")
+    logger.info(f"Prediction result: {log_str}")
 
 
 def get_model_executor() -> ModelExecutor:
