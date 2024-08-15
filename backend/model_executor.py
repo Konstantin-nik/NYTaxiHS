@@ -13,7 +13,12 @@ class ModelExecutor:
         self.model.load_model(model_path)
 
     def extract_features(self, data):
-        request_datetime = pd.to_datetime(data.request_datetime)
+        data.request_datetime = data.request_datetime.replace('/', ':')
+        try:
+            # request_datetime = pd.to_datetime(data.request_datetime, format='%Y-%m-%dT%H:%M:%S%z')
+            request_datetime = pd.to_datetime(data.request_datetime)
+        except:
+            request_datetime = pd.to_datetime(data.request_datetime)
         features = {
             "trip_distance": data.trip_distance,
             "pickup_hour": request_datetime.hour,
