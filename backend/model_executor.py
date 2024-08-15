@@ -15,7 +15,6 @@ class ModelExecutor:
     def extract_features(self, data):
         data.request_datetime = data.request_datetime.replace('/', ':')
         try:
-            # request_datetime = pd.to_datetime(data.request_datetime, format='%Y-%m-%dT%H:%M:%S%z')
             request_datetime = pd.to_datetime(data.request_datetime)
         except:
             self.logger.warning("Datetime format", data.request_datetime)
