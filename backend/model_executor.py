@@ -18,7 +18,8 @@ class ModelExecutor:
             # request_datetime = pd.to_datetime(data.request_datetime, format='%Y-%m-%dT%H:%M:%S%z')
             request_datetime = pd.to_datetime(data.request_datetime)
         except:
-            request_datetime = pd.to_datetime(data.request_datetime)
+            self.logger.warning("Datetime format", data.request_datetime)
+            request_datetime = pd.to_datetime(data.request_datetime, format='%Y-%m-%dT%H:%M:%S%z')
         features = {
             "trip_distance": data.trip_distance,
             "pickup_hour": request_datetime.hour,
