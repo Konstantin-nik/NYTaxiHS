@@ -18,11 +18,11 @@ class PredictionRequest(BaseModel):
 
         try:
             line = (
-                f"\tTrip id: {self.trip_id}\n"
-                f"\tRequest datetime: {self.request_datetime}\n"
-                f"\tTrip distance: {self.trip_distance}\n"
-                f"\tPULocationID: {self.PULocationID}\n"
-                f"\tDOLocationID: {self.DOLocationID}\n"
+                f"\tTrip id: {self.trip_id}\n" +
+                f"\tRequest datetime: {self.request_datetime}\n" +
+                f"\tTrip distance: {self.trip_distance}\n" + 
+                f"\tPULocationID: {self.PULocationID}\n" + 
+                f"\tDOLocationID: {self.DOLocationID}\n" +
                 f"\tAirport: {self.Airport}\n"
             )
             return line
