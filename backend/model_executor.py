@@ -12,6 +12,12 @@ class ModelExecutor:
         self.model = xgb.Booster()
         self.model.load_model(model_path)
 
+    def chech_features(self, data):
+        if data.trip_distance < 0: 
+            self.logger.warning(f"Trip distance is negative!!! trip_distance: {data.trip_distance}")
+            data.trip_distance = -data.trip_distance
+        return True
+
     def extract_features(self, data):
         data.request_datetime = data.request_datetime.replace('/', ':')
         try:
@@ -19,7 +25,7 @@ class ModelExecutor:
         except:
             self.logger.warning("Datetime format", data.request_datetime)
             request_datetime = pd.to_datetime(data.request_datetime, format='%Y-%m-%dT%H:%M:%S%z')
-            
+
         features = {
             "trip_distance": data.trip_distance,
             "pickup_hour": request_datetime.hour,
