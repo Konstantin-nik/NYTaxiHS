@@ -9,6 +9,9 @@ class PredictionRequest(BaseModel):
     DOLocationID: int
     Airport: int
 
+    class Config:
+        extra = "ignore"
+
 
 class PredictionResponse(BaseModel):
     prediction: float
