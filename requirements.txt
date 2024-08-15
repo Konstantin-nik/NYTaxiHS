@@ -16,3 +16,4 @@ dvc
 dvclive
 dvc_s3
 awscli
+evidently
