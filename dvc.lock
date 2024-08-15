@@ -89,8 +89,8 @@ stages:
       size: 34113
     - path: src/pipeline/model_evaluator.py
       hash: md5
-      md5: 9e9f6bf67f00b2c26ae85bfa671eff6e
-      size: 2003
+      md5: 7610ecd05aa12c78fb008dcbb5ed6268
+      size: 1991
     - path: src/scripts/evaluate.py
       hash: md5
       md5: 608207e05c88336c31707c352f5c9fb3
