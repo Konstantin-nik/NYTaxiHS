@@ -31,7 +31,7 @@ def log_trip_prediction(trip_id, features, prediction):
         "prediction": float(prediction)
     }
 
-    if float(prediction) > 1000:
+    if float(prediction) > 500:
         logger.warning("Prediction is suspiciously big:", float(prediction))
 
     log_str = json.dumps(log_dict)
