@@ -51,6 +51,7 @@ async def predict(
     model_executor: ModelExecutor = Depends(get_model_executor),
 ):  
     logger.info(f"Predicting trip with id: {request.trip_id}")
+    logger.info(f"request:", request)
     features = model_executor.extract_features(request)
     prediction = model_executor.predict(request)
     
